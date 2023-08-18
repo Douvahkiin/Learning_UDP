@@ -1,6 +1,7 @@
 #ifndef WIDGET_H
 #define WIDGET_H
 
+#include <QUdpSocket>
 #include <QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -17,5 +18,14 @@ public:
 
 private:
     Ui::Widget *ui;
+    QUdpSocket *udpSocket;
+    unsigned short port;
+
+private slots:
+    void readPendingDatagrams();
+    void broadcastData(const QByteArray &data);
+    void sendData(const QByteArray &data, QHostAddress targetAddress);
+    void on_broadcastButton_clicked();
+    void on_sendButton_clicked();
 };
 #endif // WIDGET_H
